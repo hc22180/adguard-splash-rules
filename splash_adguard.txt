@@ -1,0 +1,148 @@
+! =========================================================
+! AdGuard 开屏广告拦截补充规则（安卓常用 App 全覆盖）
+! 生成日期: 2026-10-29
+! 用途: 粘贴进 AdGuard 安卓 → 过滤器 → 我的过滤器 → 新建
+! =========================================================
+! 说明:
+! 1. 本规则只能拦截"广告素材的下发请求"，让开屏变黑屏/直接进首页
+! 2. 无法自动点"跳过"按钮（UI 层需要 GKD/李跳跳 做）
+! 3. 开屏广告的 CDN 域名更新频繁，命中漏网后在 AdGuard 日志里补
+! 4. 通用兜底规则（$image,redirect=blank,third-party）放在最后
+
+! ============ 快手 / 快手极速版 ============
+! 快手开屏素材 CDN（子域会随 CDN 节点更新，定期看日志补）
+||img.kwaicdn.com/ad*
+||img1.kwaicdn.com/ad*
+||img2.kwaicdn.com/ad*
+! 快手投放/竞价接口
+||h-adhub.kwaicdn.com*
+||ad-platform.kuaishou.com*
+||pos.kuaishou.com/*splash*
+||ad.kuaishou.com*
+! 快手聚合 SDK
+||ads.union.kuaishou.com*
+! 快手兜底（splash 路径）
+||*.kwaicdn.com/*splash*
+||*.kuaishou.com/*splash*
+||*.km.kuaishou.com*
+
+! ============ 抖音 / 今日头条 / 西瓜 ============
+! 抖音穿山铁（CT）素材
+||pangolin-sdk-toutiao.byttdm.com/*ad*
+||is.snssdk.com/nearline*
+||dysdk.ad.dianying.com*
+||*.snssdk.com/*splash*
+||*.amemv.com/*splash*
+||*.ixigua.com/*splash*
+||*.toutiao.com/*splash*
+! 抖音聚合
+||*.bytedance.com/*splash*
+
+! ============ 微博 ============
+||ad.weibo.cn*
+||*.weibo.com/*splash*
+||*.sinaimg.cn/*splash*
+
+! ============ B站 ============
+! B站开屏素材
+||*.hdslb.com/*splash*
+! B站广告接口（只拦广告位，不拦视频流）
+||cm.bilibili.com/cm/show*
+
+! ============ 知乎 ============
+||*.zhimg.com/*splash*
+||api.zhihu.com/*splash*
+
+! ============ 百度 / 百度贴吧 ============
+! 百度开屏素材（带路径限定，避免误伤搜索接口）
+||*.baidu.com/*splash*
+||*.baidustatic.com/*splash*
+! 百度聚合广告接口
+||union.baidu.com*
+! 百度贴吧兜底
+||tieba.baidu.com/*splash*
+
+! ============ 微信 / 视频号 ============
+! 微信开屏（一般无开屏，兜底）
+||*.weixin.qq.com/*splash*
+||*.wx.qq.com/*splash*
+
+! ============ QQ / 腾讯系 ============
+! 腾讯广告联盟（开屏素材常用域名）
+||e.qq.com*
+||*.gtimg.cn/*splash*
+||*.qpic.cn/*splash*
+
+! ============ 淘宝 / 天猫 / 支付宝 ============
+! 阿里妈妈开屏素材
+||gw.alicdn.com/*splash*
+||*.mmstat.com/*splash*
+! 支付宝兜底
+||*.umid.alibaba.com*
+||*.alipay.com/*splash*
+! 淘宝兜底
+||*.tbcdn.cn/*splash*
+||*.alicdn.com/*splash*
+
+! ============ 京东 ============
+! 京东开屏素材
+||*.jdaocdn.com/*splash*
+||*.360buyimg.com/*splash*
+! 京东聚合
+||*.jdaocdn.com/ad*
+
+! ============ 拼多多 ============
+! 拼多多开屏（走自家 CDN，带 splash 路径）
+||*.pddpic.com/*splash*
+||*.pimg4.com/*splash*
+||*.pplivevideo.com/*splash*
+
+! ============ 美团 / 大众点评 ============
+||*.meituan.com/*splash*
+||*.dianping.com/*splash*
+! 美团素材 CDN
+||*.meituan.net/*splash*
+||*.dianping.net/*splash*
+
+! ============ 12306 / 铁路 ============
+! 一般无开屏，保留兜底
+||*.12306.cn/*splash*
+
+! ============ 网易云音乐 ============
+||*.126.net/*splash*
+||music.126.net/*splash*
+! 网易开屏聚合
+||api.163.com/*splash*
+
+! ============ 喜马拉雅 ============
+||*.ximalaya.com/*splash*
+
+! ============ 爱奇艺 / 优酷 / 腾讯视频 ============
+! 爱奇艺开屏
+||*.iqiyi.com/*splash*
+||*.iq.com/*splash*
+! 优酷开屏
+||*.youku.com/*splash*
+! 腾讯视频开屏
+||*.qq.com/*splash*
+! 兜底
+||*.v.qq.com/*splash*
+
+! ============ 通用开屏特征兜底（命中较少，放在最后） ============
+! 所有带 splash 路径的域名
+||*/*splash*
+! 所有带 startapp 路径的域名
+||*/*startapp*
+! 第三方图片请求（开屏常见形态，redirect=blank 让返回空白）
+*$image,redirect=blank,third-party
+! 通用聚合 SDK（开屏常用）
+! 穿山铁 / 巨量引擎
+||*.csjpt.com*
+||*.pangolin-sdk-toutiao.com*
+||*.bytedpsc.com*
+! 快手聚合
+||*.adhub.kuaishou.com*
+! 阿里聚合
+||*.union.alibaba.com*
+! 腾讯广告联盟
+||*.e.qq.com*
