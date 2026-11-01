@@ -48,10 +48,40 @@
 ||*.hdslb.com/*splash*
 ! B站广告接口（只拦广告位，不拦视频流）
 ||cm.bilibili.com/cm/show*
+! ---- B站 激励视频 / 广告位 / 跳转（针对"守了个桥"类小程序激励广告）----
+! 说明: 以下域名全部走 AdGuard 官方过滤库口径，保守带路径/类型限定，
+!       避免误伤 B站正常功能（视频流 .hdslb.com、弹幕、评论、搜索）
+! ① B站广告数据接口（开屏 + 信息流 + 激励视频素材下发）
+||api.bilibili.com/x/v2/splash*          ! 开屏广告请求
+||api.bilibili.com/x/ad*                 ! 广告位/广告素材
+||api.bilibili.com/x/v2/ad*             ! 新版广告接口
+||api.bilibili.com/x/v2/heartbeat*       ! 广告心跳(可保留,保守可删)
+||cm.bilibili.com/cm3*                  ! 广告监测埋点
+! ② 激励视频"关闭后跳转"落地页（第三方/自有推广）
+||api.bilibili.com/x/v2/app/view/home-splash*
+! ③ 激励视频素材 CDN（B站自有 + 第三方聚合）
+||*.bilibili.com/ep/                    ! 广告 ep 素材(保守,按需启用)
+||ad.bilibili.com*                      ! B站广告站(跳转落地)
+||api.jianying.com*                     ! 剪映/抖音系聚合激励视频
+! ④ B站激励视频"去广告"浮层素材（CSS 注入类, 网页端/部分内嵌 WebView 生效）
+bilibili.com##.ad-sdk-web-sdk-container, .bilibili-ad-card, .ad-banner-pop, .vip-promotion-modal
+! ⑤ B站兜底（带 splash 路径，放在 B站段最后）
+||*.bilibili.com/*splash*
 
-! ============ 知乎 ============
+! ============ 知乎（开屏常轮播阿里双11/淘宝/京东/抖音等聚合素材） ============
+! ① 知乎自家开屏
 ||*.zhimg.com/*splash*
 ||api.zhihu.com/*splash*
+! ② 阿里系（知乎开屏高频投放天猫双11/淘宝素材）——不限路径，整域拦素材
+||gw.alicdn.com/imgad*
+||*.mmstat.com/img*
+! ③ 京东开屏聚合
+||*.jdaocdn.com*
+||*.360buyimg.com*
+! ④ 抖音聚合 SDK（知乎开屏偶尔投抖音素材）
+||pangolin-sdk-toutiao.byttdm.com*
+! ⑤ 知乎开屏兜底
+||api.zhihu.com*
 
 ! ============ 百度 / 百度贴吧 ============
 ! 百度开屏素材（带路径限定，避免误伤搜索接口）
